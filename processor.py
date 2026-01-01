@@ -1,6 +1,47 @@
 from typing import Dict, Any, List
 
 def process_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    
+    new_scores = record['scores'] 
+    new_user_id = record['user_id']
+    user_enable = record['enabled']
+
+    processed_scores = []
+    for i in new_scores:
+        if i > 0 and type(i) == int:
+            processed_scores.append(i)
+        
+    if not processed_scores:
+        average = 0.0
+    else : average = sum(processed_scores)/len(processed_scores)    
+    average = round(average,2)
+
+    if average >= 60 and user_enable == True:
+        status = "PASS"
+    else :
+        status = "FAIL"    
+
+
+
+    new_record = {
+        "user_id":new_user_id,
+        "average_score": average,
+        "status": status
+    }
+    
+    return new_record
+        
+
+
+
+   
+
+    
+
+       
+
+
+
     """
     对一条记录进行处理，并返回处理后的结果
 
@@ -28,4 +69,5 @@ def process_record(record: Dict[str, Any]) -> Dict[str, Any]:
         - 不要修改传入的 record
         - 返回值结构必须严格一致
     """
-    raise NotImplementedError
+    
+    
